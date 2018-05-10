@@ -1,0 +1,21 @@
+.jumbotron {
+    background-image: url('/pattern.jpg');
+    background-size: cover
+}
+
+.jumbotron h1 {
+    color: ghostwhite;
+    text-shadow: 1px 1px 8px rgb(7, 53, 61)
+    
+}
+.jumbotron h3 {
+    color: rgb(174, 190, 30);
+    text-shadow: 1px 1px 8px rgb(17, 69, 78)
+
+}
+
+.jumbotron p {
+    color: ghostwhite;
+    text-shadow: 3px 3px 8px rgb(49, 213, 241)
+
+}
