@@ -87,6 +87,7 @@
             form.addEventListener("submit", function(event) {
                 var data = new FormData(form);
 
+                scores = [];
                 data.forEach((entry, index) =>  {
                     if(index == 'name') name = entry;
                     else if(index == 'photo') photo = entry;
@@ -121,8 +122,10 @@
                             total = 0;                            
                         }
                     })
+                    scores = [];
 
                     console.log(bestFriend)   
+                    $('.modal-body').empty();
                     $('.modal-body').append(bestFriend.name + '<br><img src=' + bestFriend.photo + '/>')  
                     $('#myModal').modal('toggle')
                                    
