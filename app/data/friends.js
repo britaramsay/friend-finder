@@ -16,19 +16,19 @@ module.exports = friends = [
         ]
     },
     {
-        "name":"Ahmed",
+        "name":"Sam",
         "photo":"https://robohash.org/voluptatequiadeserunt.jpg?size=50x50&set=set1",
         "scores":[
-            5,
-            1,
-            4,
             4,
             5,
-            1,
             2,
+            3,
+            1,
+            4,
+            3,
             5,
             4,
-            1
+            2
         ]
     },
     {

@@ -14,45 +14,53 @@
 	<body>
         <div class="jumbotron">
             <h1>Friend Finder</h1>
-            <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg">
             <p>Rate the TV shows from 1 to 5 to find your best friend.</p>
+            <a href='/'>Home</a><br>
+            <a href='api/friends'>See all friends</a>
         </div>
-        <form>
-            Name: <input type="text" name='name'>
-            Photo URL: <input type="text" name='photo'>
-            <ol id='questions'>
-            </ol>
-            <button type="submit" class="btn btn-primary submit">Submit</button>
-        </form>
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-              </button>
-              
-              <!-- Modal -->
-              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="container">
+            <form>
+                <div class="form-group">
+                    <label for="name">Name: </label>
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="photo">Photo URL: </label>
+                    <input type="text" class="form-control" id="photo" name="photo">
+                </div>
+                <ol id='questions'>
+                </ol>
+                <button type="submit" class="btn btn-primary submit">Submit</button>
+            </form>
+         
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
-                  <div class="modal-content">
+                    <div class="modal-content">
                     <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Your Most Compatible Friend</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Your Most Compatible Friend</h4>
                     </div>
                     <div class="modal-body">
-                      
+                        
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-                  </div>
+                    </div>
                 </div>
-              </div>
+            </div>
+        </div>
+        
         <script type="text/javascript">
-            // const friends = require('../data/friends.js')
 
             var questions = ['Game of Thrones', 'RuPaul\'s Drag Race', 'The Office', 'Jersey Shore', 'Seinfeld', 'American Horror Story', 'Westworld', 'Peep Show', 'Twin Peaks', 'Fargo']
             $(document).ready(() => {
                 questions.forEach(question => {
                     var item = $('<li>')
                         item.append('<p>'+question+'</p>')
-                        item.append('<input type="radio" name="'+question+'" value="1" >1 <input type="radio" name="'+question+'" value="2">2 <input type="radio" name="'+question+'" value="3">3 <input type="radio" name="'+question+'" value="4">4 <input type="radio" name="'+question+'" value="5">5')                    
+                        item.append('<label class="radio-inline"><input type="radio" name="'+question+'" value=1> 1 </label> <label class="radio-inline"><input type="radio" name="'+question+'" value=2> 2 </label> <label class="radio-inline"><input type="radio" name="'+question+'" value=3> 3 </label> <label class="radio-inline"><input type="radio" name="'+question+'" value=4> 4 </label> <label class="radio-inline"><input type="radio" name="'+question+'" value=5> 5 </label>')
+// <label class="radio-inline"><input type="radio" name="optradio">Option 2</label>
+// <label class="radio-inline"><input type="radio" name="optradio">Option 3</label><input type="radio" name="'+question+'" value="1" >1 <input type="radio" name="'+question+'" value="2">2 <input type="radio" name="'+question+'" value="3">3 <input type="radio" name="'+question+'" value="4">4 <input type="radio" name="'+question+'" value="5">5')                    
 
                     $('#questions').append(item)
                 })
@@ -102,7 +110,6 @@
                                 bestFriendScore = total;
                                 bestFriend = friend;
                             }
-                            console.log(friend.name + ' | ' + total)
                             total = 0;                            
                         }
                     })
