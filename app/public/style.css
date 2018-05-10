@@ -5,12 +5,12 @@
 
 .jumbotron h1 {
     color: ghostwhite;
-    text-shadow: 1px 1px 8px rgb(7, 53, 61)
+    text-shadow: 1px 1px 3px rgb(7, 53, 61)
     
 }
-.jumbotron h3 {
+.jumbotron h4 {
     color: rgb(174, 190, 30);
-    text-shadow: 1px 1px 8px rgb(17, 69, 78)
+    text-shadow: 1px 1px 3px rgb(17, 69, 78)
 
 }
 
