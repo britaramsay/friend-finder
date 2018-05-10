@@ -1,1 +1,121 @@
-servey
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <title>Friend Survey</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+        <div class="jumbotron">
+            <h1>Friend Finder</h1>
+            <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg">
+            <p>Rate the TV shows from 1 to 5 to find your best friend.</p>
+        </div>
+        <form>
+            Name: <input type="text" name='name'>
+            Photo URL: <input type="text" name='photo'>
+            <ol id='questions'>
+            </ol>
+            <button type="submit" class="btn btn-primary submit">Submit</button>
+        </form>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+              </button>
+              
+              <!-- Modal -->
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Your Most Compatible Friend</h4>
+                    </div>
+                    <div class="modal-body">
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        <script type="text/javascript">
+            // const friends = require('../data/friends.js')
+
+            var questions = ['Game of Thrones', 'RuPaul\'s Drag Race', 'The Office', 'Jersey Shore', 'Seinfeld', 'American Horror Story', 'Westworld', 'Peep Show', 'Twin Peaks', 'Fargo']
+            $(document).ready(() => {
+                questions.forEach(question => {
+                    var item = $('<li>')
+                        item.append('<p>'+question+'</p>')
+                        item.append('<input type="radio" name="'+question+'" value="1" >1 <input type="radio" name="'+question+'" value="2">2 <input type="radio" name="'+question+'" value="3">3 <input type="radio" name="'+question+'" value="4">4 <input type="radio" name="'+question+'" value="5">5')                    
+
+                    $('#questions').append(item)
+                })
+            })
+        
+            function NewFriend(name, photo, scores) {
+                this.name = name;
+                this.photo = photo;
+                this.scores = scores;
+            }
+
+            var scores = [], name, photo, newFriend;
+
+            var form = document.querySelector("form");
+
+            form.addEventListener("submit", function(event) {
+                var data = new FormData(form);
+
+                data.forEach((entry, index) =>  {
+                    if(index == 'name') name = entry;
+                    else if(index == 'photo') photo = entry;
+                    else {
+                        var intEntry = parseInt(entry)
+                        scores.push(intEntry)
+                    }
+                });
+                newFriend = new NewFriend(name, photo, scores)
+
+                // var currentURL = window.location.origin;
+                $.post("/api/friends", newFriend, () => {});
+
+                $.get("/api/friends", (data) => {
+                        console.log(data)
+                    var bestFriendScore,
+                        bestFriend,
+                        total = 0;
+                    data.forEach((friend, fInd) => {
+                       
+                        if(friend.name !== newFriend.name) {
+                            console.log(newFriend.name + " | " + friend.name)
+
+                            friend.scores.forEach((score, index) => {
+                                total += Math.abs(newFriend.scores[index] - score)
+                            })
+                            if(fInd == 0) bestFriendScore = total;
+                            if(total < bestFriendScore) {
+                                bestFriendScore = total;
+                                bestFriend = friend;
+                            }
+                            console.log(friend.name + ' | ' + total)
+                            total = 0;                            
+                        }
+                    })
+
+                    console.log(bestFriend)   
+                    $('.modal-body').append(bestFriend.name + '<br><img src=' + bestFriend.photo + '/>')  
+                    $('#myModal').modal('toggle')
+                                   
+                })
+                event.preventDefault();
+            }, false);
+                
+        </script>
+
+    </body>
+</html>

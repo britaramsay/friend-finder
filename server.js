@@ -6,13 +6,14 @@ const express = require("express"),
 // Sets up the Express App
 var app = express(),
     port = 3000;
-
-
-var routes = require('./app/routing/htmlRoutes.js')(app, path); 
+    
 
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+var htmlRoutes = require('./app/routing/htmlRoutes.js')(app, path),
+    apiRoutes = require('./app/routing/apiRoutes.js')(app, path); 
 
 // Starts the server to begin listening
 app.listen(port, () => console.log("App listening on PORT " + port));
