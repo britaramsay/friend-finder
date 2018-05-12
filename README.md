@@ -1,4 +1,4 @@
-# friend-finder
+# Friend Finder
 [Use the app](https://shrouded-atoll-60290.herokuapp.com/)
 ---
 * This express app finds your most compatible friend based on your choice of TV shows.
